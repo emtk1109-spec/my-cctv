@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pemasangan CCTV</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.container {
+    padding: 20px;
+    max-width: 650px;
+    margin: auto;
+}
+
+h1 { text-align: center; }
+
+.card {
+    background: rgba(0,0,0,0.4);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+select, input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+/* tombol WA */
+.wa-button {
+    display: block;
+    text-align: center;
+    background: #25D366;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📷 Pemasangan CCTV</h1>
+
+<div class="card">
+    <h3>📍 Jumlah Titik CCTV</h3>
+    <input type="number" id="qty" value="1" min="1" oninput="hitung()">
+</div>
+
+<div class="card">
+    <h3>🔧 Pemasangan (Fixed)</h3>
+    <p><b>25.000 / titik</b></p>
+</div>
+
+<div class="card">
+    <h3>📡 Jalur Kabel LAN (Opsional)</h3>
+    <input type="number" id="kabel" value="0" min="0" oninput="hitung()">
+    <small>Rp 4.000 / meter</small>
+</div>
+
+<div class="card">
+    <h3>📹 Pilihan CCTV</h3>
+    <select id="cctv" onchange="hitung()">
+        <option value="180000">V380Pro Mini Indoor - 180.000</option>
+        <option value="220000">V380Pro Outdoor - 220.000</option>
+        <option value="500000">Bardil Outdoor - 500.000</option>
+    </select>
+</div>
+
+<div class="card">
+    <h3>💾 Pilihan Memori</h3>
+    <select id="memory" onchange="hitung()">
+        <option value="110000">8GB - 110.000</option>
+        <option value="130000">16GB - 130.000</option>
+        <option value="165000">32GB - 165.000</option>
+        <option value="285000">64GB - 285.000</option>
+        <option value="460000">128GB - 460.000</option>
+    </select>
+</div>
+
+<div class="card">
+    <h2>💰 Total Harga: Rp <span id="total">0</span></h2>
+</div>
+
+<a class="wa-button" id="wa" target="_blank">
+   💬 Hubungi via WhatsApp
+</a>
+
+</div>
+
+<script>
+function hitung() {
+    let qty = parseInt(document.getElementById("qty").value) || 1;
+    let kabel = parseInt(document.getElementById("kabel").value) || 0;
+
+    let install = 25000;
+    let cctv = parseInt(document.getElementById("cctv").value);
+    let memory = parseInt(document.getElementById("memory").value);
+
+    let total = (install * qty) + (kabel * 4000) + cctv + memory;
+
+    document.getElementById("total").innerText = total.toLocaleString("id-ID");
+
+    let waText = `Halo, saya ingin pemasangan CCTV.%0A`
+        + `Jumlah titik: ${qty}%0A`
+        + `Kabel LAN: ${kabel} meter%0A`
+        + `Estimasi total: Rp ${total.toLocaleString("id-ID")}`;
+
+    document.getElementById("wa").href =
+        "https://wa.me/6285648256086?text=" + waText;
+}
+
+// init
+hitung();
+</script>
+
+</body>
+</html>
